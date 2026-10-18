@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Username Finder — Roblox & Discord</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0d12;--panel:#121722;--panel2:#171e2b;--line:#283246;--text:#eef3ff;--muted:#9aa8bf;--accent:#8b7cff;--green:#42d392;--red:#ff697d;--amber:#f7c66a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#171a32 0,#0b0d12 48%);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1050px;margin:auto;padding:24px 16px 48px}.top{display:flex;gap:12px;align-items:center;margin-bottom:20px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#8b7cff,#47c8ef);display:grid;place-items:center;font-weight:900;color:#080b12;font-size:20px}.eyebrow{color:#a9a2ff;text-transform:uppercase;font-size:11px;letter-spacing:.15em;font-weight:800}.title{font-size:clamp(25px,5vw,38px);font-weight:850;letter-spacing:-.04em;margin:0}.subtitle{color:var(--muted);margin:4px 0 0}.layout{display:grid;grid-template-columns:340px 1fr;gap:16px}.card{background:rgba(18,23,34,.95);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 12px 35px #0002}.card h2{font-size:16px;margin:0 0 14px}.field{margin:13px 0}.field label{display:block;color:#cbd5e7;font-size:13px;margin-bottom:7px;font-weight:650}input,textarea,select{width:100%;border:1px solid #303b51;background:#0c111b;color:var(--text);padding:11px 12px;border-radius:10px;font:inherit;outline:none}textarea{min-height:116px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--accent)}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.checks{display:flex;flex-wrap:wrap;gap:8px}.pill{display:flex;gap:7px;align-items:center;border:1px solid var(--line);padding:8px 10px;border-radius:10px;background:#0d121c;color:#dbe4f6}.pill input{width:auto;margin:0;accent-color:var(--accent)}button{border:0;border-radius:10px;padding:11px 13px;font-weight:800;font-size:13px;cursor:pointer;background:var(--accent);color:white}button.secondary{background:#242d3f;color:#e8eeff;border:1px solid #354159}button.danger{background:#3a202a;color:#ffb4c0;border:1px solid #653342}button:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:8px;margin-top:14px}.actions button{flex:1}.hint{font-size:12px;color:var(--muted);margin-top:7px}.statusline{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px;color:var(--muted);font-size:13px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.stat{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:11px}.stat small{display:block;color:var(--muted);font-size:11px}.stat strong{font-size:22px}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:520px}th,td{text-align:left;padding:11px 12px;border-bottom:1px solid #242e40;font-size:13px}th{background:#171e2b;color:#9eacc4;font-size:11px;text-transform:uppercase;letter-spacing:.08em}tr:last-child td{border-bottom:0}.name{font-weight:800;letter-spacing:.01em}.badge{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}.available{background:#12352a;color:var(--green)}.taken{background:#3b1d28;color:#ff8796}.unknown{background:#302b1b;color:var(--amber)}.neutral{background:#202a3c;color:#b6c6e3}.mini{padding:6px 8px;font-size:11px}.empty{text-align:center;color:var(--muted);padding:32px 12px}.notice{border:1px solid #4b432b;background:#282417;color:#e8d7a5;border-radius:12px;padding:12px;font-size:12px;margin-top:14px}.foot{color:var(--muted);font-size:12px;margin-top:16px}.link{color:#b7afff;text-decoration:none}.link:hover{text-decoration:underline}.progress{height:5px;background:#242d3d;border-radius:9px;overflow:hidden;margin:8px 0 14px}.bar{height:100%;width:0;background:linear-gradient(90deg,#8b7cff,#47c8ef);transition:width .2s}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.card{padding:15px}.top{align-items:flex-start}.stats strong{font-size:19px}}
+</style></head>
+<body><main>
+<header class="top"><div class="logo">U</div><div><div class="eyebrow">Username research toolkit</div><h1 class="title">Username Finder</h1><p class="subtitle">Génère des pseudos courts et vérifie leur statut — Roblox & Discord.</p></div></header>
+<div class="layout">
+<section class="card">
+<h2>Configuration</h2>
+<div class="field"><label>Plateformes</label><div class="checks"><label class="pill"><input id="robloxOn" type="checkbox" checked> Roblox</label><label class="pill"><input id="discordOn" type="checkbox" checked> Discord</label></div></div>
+<div class="field"><label for="seeds">Exemples / mots de base</label><textarea id="seeds">3io
+3l
+7l
+good
+work
+heart</textarea><div class="hint">Un par ligne. Les exemples servent aussi à créer des variantes.</div></div>
+<div class="field"><label for="patterns">Génération</label><select id="patterns"><option value="mixed">Courts + variantes</option><option value="exact">Exemples exacts seulement</option><option value="short">Très courts (2–4 caractères)</option><option value="words">Mots courts / clean</option></select></div>
+<div class="field"><label for="custom">Liste personnalisée (facultatif)</label><textarea id="custom" placeholder="exemple :\nxy7\nvex\nqio"></textarea></div>
+<div class="field"><label for="delay">Cadence des vérifications Roblox</label><select id="delay"><option value="2000">1 vérification toutes les 2 secondes</option><option value="3000">1 vérification toutes les 3 secondes</option><option value="5000">1 vérification toutes les 5 secondes</option></select><div class="hint">Le rythme est limité volontairement. Arrête si l’API renvoie une erreur ou limite les requêtes.</div></div>
+<div class="actions"><button id="generate">Générer les pseudos</button><button class="secondary" id="import">Charger la liste</button></div>
+<div class="actions"><button id="start">Lancer la vérification</button><button class="danger" id="stop" disabled>Arrêter</button></div>
+<div class="notice"><b>Important :</b> Roblox peut être vérifié via son endpoint public de validation, si le navigateur y accède. Discord ne propose pas de vérification publique fiable sans authentification : ses résultats sont marqués « à vérifier manuellement ». Aucun pseudo n’est réservé, réclamé ou modifié automatiquement.</div>
+</section>
+<section class="card">
+<div class="statusline"><span id="status">Prêt à générer</span><span id="counter">0 candidat</span></div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="stats"><div class="stat"><small>Disponibles confirmés</small><strong id="avail">0</strong></div><div class="stat"><small>Indisponibles</small><strong id="taken">0</strong></div><div class="stat"><small>À vérifier</small><strong id="unknown">0</strong></div></div>
+<div class="row" style="margin-bottom:12px"><input id="filter" placeholder="Filtrer les pseudos…"><button class="secondary" id="export" style="flex:0 0 auto">Exporter CSV</button></div>
+<div class="tablewrap"><table><thead><tr><th>Pseudo</th><th>Plateforme</th><th>Statut</th><th>Action</th></tr></thead><tbody id="results"><tr><td colspan="4" class="empty">Génère une liste pour commencer.</td></tr></tbody></table></div>
+<p class="foot">Les statuts « disponible » sont des résultats de validation à cet instant, pas une garantie que le pseudo sera encore libre au moment où tu le choisis. Les règles de nommage varient selon la plateforme.</p>
+</section></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let entries=[], running=false, stopRequested=false;
+const wordExtras=["syn","vex","zyo","kio","nex","lune","void","frost","pure","nova","zen","wave","rare","byte","ghost","ace","flex","vibe","luck","glow","mood","hype","iris","echo","wolf","wish","love","star","gold","rich","mint","onyx","zeno","kyro","z3n","7io","3yo","xio","qio","vii","l7","z7","io7","3vx","w0rk","g00d","h3art"];
+function unique(a){return [...new Set(a.map(x=>x.trim()).filter(Boolean))]}
+function generateNames(){
+ const seeds=unique($("seeds").value.split(/\n/).map(x=>x.toLowerCase().replace(/[^a-z0-9_]/g,"")));
+ const mode=$("patterns").value; let names=[];
+ if(mode==="exact") names=seeds;
+ else if(mode==="short") names=[...seeds.filter(x=>x.length<=4),...wordExtras.filter(x=>x.length>=2&&x.length<=4)];
+ else if(mode==="words") names=[...seeds.filter(x=>x.length>=3&&x.length<=8),...wordExtras.filter(x=>x.length>=3&&x.length<=8)];
+ else {
+  names=[...seeds,...wordExtras];
+  for(const s of seeds){if(s.length<=4){names.push(s+"x","x"+s,s+"7",s+"z",s+"io",s+"q");}else{names.push(s+"7","x"+s,s.slice(0,4),s.slice(0,3)+"x");}}
+ }
+ names=unique([...names,...$("custom").value.split(/\n/).map(x=>x.trim().toLowerCase())]);
+ entries=[];
+ const platforms=[]; if($("robloxOn").checked)platforms.push("Roblox");if($("discordOn").checked)platforms.push("Discord");
+ for(const name of names)for(const platform of platforms){
+   if(platform==="Roblox" && (name.length<3||name.length>20||!/^[a-zA-Z0-9_]+$/.test(name)||name.startsWith("_")||name.endsWith("_")||name.includes("__"))){
+    entries.push({name,platform,status:"invalid",message:"Format non accepté"}); 
+   } else if(platform==="Discord" && (name.length<2||name.length>32||!/^[a-z0-9._]+$/.test(name))){
+    entries.push({name,platform,status:"invalid",message:"Format non accepté"});
+   } else entries.push({name,platform,status:"pending",message:"Non vérifié"});
+ }
+ render(); setStatus("Liste générée"); 
+}
+function setStatus(s){$("status").textContent=s}
+function counts(){let a=entries.filter(e=>e.status==="available").length,t=entries.filter(e=>e.status==="taken").length,u=entries.filter(e=>!["available","taken","invalid"].includes(e.status)).length;$("avail").textContent=a;$("taken").textContent=t;$("unknown").textContent=u;$("counter").textContent=entries.length+" résultats"}
+function render(){
+ counts(); const q=$("filter").value.toLowerCase();const filtered=entries.filter(e=>(e.name+" "+e.platform+" "+e.status).toLowerCase().includes(q));
+ if(!filtered.length){$("results").innerHTML='<tr><td colspan="4" class="empty">Aucun résultat.</td></tr>';return}
+ $("results").innerHTML=filtered.map((e)=>{let label={available:"Disponible",taken:"Indisponible",unknown:"À vérifier",pending:"En attente",invalid:"Format invalide",error:"Erreur API"}[e.status]||e.status;let cls={available:"available",taken:"taken",unknown:"unknown",pending:"neutral",invalid:"neutral",error:"unknown"}[e.status]||"neutral";return `<tr><td><span class="name">${escapeHtml(e.name)}</span><div class="hint">${escapeHtml(e.message||"")}</div></td><td>${e.platform}</td><td><span class="badge ${cls}">${label}</span></td><td><button class="secondary mini" onclick="copyName('${escapeAttr(e.name)}')">Copier</button></td></tr>`}).join("");
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function escapeAttr(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
+window.copyName=async n=>{try{await navigator.clipboard.writeText(n);setStatus("Pseudo copié : "+n)}catch{setStatus("Copie non disponible dans ce navigateur")}}
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+async function checkRoblox(name){
+ const url="https://auth.roblox.com/v1/usernames/validate?request.username="+encodeURIComponent(name)+"&request.birthday=2000-01-01&request.context=Signup";
+ const res=await fetch(url,{method:"GET",headers:{"Accept":"application/json"}});
+ if(!res.ok)throw new Error("HTTP "+res.status);
+ const data=await res.json();
+ // Roblox codes: 0 valid, 1 taken, 2 inappropriate, 3 invalid, 4 moderation error
+ if(data.code===0)return {status:"available",message:"Validation Roblox : nom valide (à confirmer dans Roblox)"};
+ if(data.code===1)return {status:"taken",message:"Déjà utilisé"};
+ if(data.code===2)return {status:"invalid",message:"Refusé par la modération"};
+ if(data.code===3)return {status:"invalid",message:"Format invalide"};
+ return {status:"unknown",message:data.message||"Statut non déterminé"};
+}
+async function startCheck(){
+ if(running)return; const todo=entries.filter(e=>e.status==="pending"||e.status==="unknown"||e.status==="error");
+ if(!todo.length){setStatus("Aucun résultat en attente");return}
+ running=true;stopRequested=false;$("start").disabled=true;$("stop").disabled=false;
+ let done=0;
+ for(const e of todo){
+  if(stopRequested)break;
+  if(e.platform==="Discord"){e.status="unknown";e.message="Vérification publique indisponible — vérifier dans Discord";}
+  else{
+   try{const r=await checkRoblox(e.name);e.status=r.status;e.message=r.message}
+   catch(err){e.status="error";e.message="API inaccessible ou limite de requêtes. Arrêt conseillé.";render();setStatus("Vérification arrêtée : endpoint inaccessible");break}
+  }
+  done++;$("bar").style.width=Math.round(done/todo.length*100)+"%";render();
+  if(done<todo.length&&!stopRequested)await wait(Number($("delay").value));
+ }
+ running=false;$("start").disabled=false;$("stop").disabled=true;
+ if(stopRequested)setStatus("Vérification arrêtée par l’utilisateur");
+ else if(done>0)setStatus("Vérification terminée ou interrompue");
+}
+function exportCsv(){const rows=[["pseudo","plateforme","statut","message"],...entries.map(e=>[e.name,e.platform,e.status,e.message||""])];const csv=rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8;"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="username-finder.csv";a.click();URL.revokeObjectURL(a.href)}
+$("generate").addEventListener("click",generateNames);
+$("start").addEventListener("click",startCheck);
+$("stop").addEventListener("click",()=>{stopRequested=true;$("stop").disabled=true;setStatus("Arrêt en cours…")});
+$("filter").addEventListener("input",render);
+$("export").addEventListener("click",exportCsv);
+$("import").addEventListener("click",()=>{let list=unique($("custom").value.split(/\n/).map(x=>x.toLowerCase().trim()));if(!list.length){setStatus("Ajoute des pseudos dans la liste personnalisée");return} $("seeds").value=list.join("\n");$("patterns").value="exact";generateNames()});
+generateNames();
+</script></body></html>
